@@ -1,0 +1,4 @@
+import numpy
+import importlib as il   # later, reload with :   il.reload(rd)
+from theo import *
+global KB

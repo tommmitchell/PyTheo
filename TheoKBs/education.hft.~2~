@@ -1,0 +1,48 @@
+BEGIN HFT
+ce educationEntity [entity]
+ce student [educationEntity]
+ce school [educationEntity]
+ce question [educationEntity]
+ce s_module [educationEntity]
+ce pretest [educationEntity]
+ce posttest [educationEntity]
+
+ce video [educationEntity]
+
+ce instructor [educationEntity]
+ce instructorTaughtStudent [slot]
+av instructorTaughtStudent domain instructor
+av instructorTaughtStudent range student
+ce instructorInSchool [slot]
+av instructorInSchool domain instructor
+av instructorInSchool range school
+ce instructorTaughtModule [slot]
+av instructorTaughtModule domain instructor
+av instructorTaughtModule range s_module
+
+ce knowledgePoint [educationEntity]
+ce KPquestions [slot]
+av KBquestions domain knowledgePoint
+av KBquestions range question
+
+ce studentQuestions [slot]
+av studentQuestions domain student
+av studentQuestions range question
+
+ce pretestQuestions [slot]
+av pretestQuestions domain pretest
+av pretestQuestions range question
+ce pretestStudent [slot]
+av pretestStudent domain pretest
+av pretestStudent range student
+
+
+ce posttestQuestions [slot]
+av posttestQuestions domain posttest
+av posttestQuestions range question
+ce posttestStudent [slot]
+av posttestStudent domain posttest
+av posttestStudent range student
+
+
+END HFT

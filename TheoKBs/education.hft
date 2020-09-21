@@ -1,0 +1,55 @@
+BEGIN HFT
+ce education_domain [anything]
+ce educationEntity [education_domain entity]
+ce educationSlot [education_domain slot]
+
+ce student [educationEntity]
+ce school [educationEntity]
+ce question [educationEntity]
+ce s_module [educationEntity]
+ce pretest [educationEntity]
+ce posttest [educationEntity]
+ce video [educationEntity]
+ce knowledgePoint [educationEntity]
+ce instructor [educationEntity]
+
+ce instructorTaughtStudent [educationSlot]
+av instructorTaughtStudent domain instructor
+av instructorTaughtStudent range student
+ce instructorInSchool [educationSlot]
+av instructorInSchool domain instructor
+av instructorInSchool range school
+ce instructorTaughtModule [educationSlot]
+av instructorTaughtModule domain instructor
+av instructorTaughtModule range s_module
+
+
+ce KPquestions [educationSlot]
+av KPquestions domain knowledgePoint
+av KPquestions range question
+
+ce studentQuestions [educationSlot]
+av studentQuestions domain student
+av studentQuestions range question
+ce studentHadInstructor [educationSlot]
+av studentHadInstructor domain student
+av studentHadInstructor range instructor
+av studentHadInstructor inverse instructorTaughtStudent
+
+ce pretestQuestions [educationSlot]
+av pretestQuestions domain pretest
+av pretestQuestions range question
+ce pretestStudent [educationSlot]
+av pretestStudent domain pretest
+av pretestStudent range student
+
+
+ce posttestQuestions [educationSlot]
+av posttestQuestions domain posttest
+av posttestQuestions range question
+ce posttestStudent [educationSlot]
+av posttestStudent domain posttest
+av posttestStudent range student
+
+
+END HFT

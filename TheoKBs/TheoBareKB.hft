@@ -1,0 +1,82 @@
+Put whatever you like before the line that begins the Human Friendly Theo instructions.
+Each line must begin with one of the following commands:
+- Create Entity, which is of the form:  ce <entityName> [<list of its generalizations>]
+- Add Slot Value, which is of the form: av <entityName> <slotName> <value>
+-- Note here that the <value> can be a string surrounded by quote marks "like this"
+-- any non-quoted token will be considered to be a Theo entity
+-- lists are also allowed values [like this "including strings too"]
+
+Note Theo has entities, slots, and values, and everything in Theo is built from these.
+- an (entity slot value) triple is called a Theo belief, e.g., (bill founded microsoft)
+- an (entity slot) pair is called a Theo query, e.g.,  (bill founded)
+- there are two kinds of entities:
+-- explicit entities, which have single token names (e.g., microsoft)
+-- implicit entities, which are beliefs or queries
+-- example implicit entities are (bill founded microsoft), (bill founded)
+-- importantly, Theo can pose queries and hold beliefs about any explicit or IMPLICIY entity
+-- example of a belief about a belief: ((bill numberOfSiblings 3) probability 0.99)
+-- example of a belief about a query: ((bill numberOfSiblings) defaultValue 2)
+
+Theo philosophy: anything can be an 'entity' about which we can hold beliefs.  The role of a
+knowledge base is to capture as many relevant entities as possible and beliefs about them.  In Theo,
+we allow any string to represent a 'node' in the knowledge graph (e.g., think any noun phrase).  At
+any given point, only some strings are known in the KB, so we provide a function isEntity(string)
+which indicates whether that string represents an entity currently in the KB.  But even if not, it
+can be used as the value of some slot of some other entity.  In the future, it might be made an
+entity if the system learns a relevant new belief about it.
+
+BEGIN HFT
+# comments begin with the token #, like this one
+
+# defining the entities in the core Theo KB
+ce anything []
+ce entity [anything]
+ce slot [anything]
+ce slotSlot [slot]
+ce theoThing [anything]
+ce belief [theoThing]
+ce query [theoThing]
+ce theoSlot [slot theoThing]
+ce domain [theoSlot slotSlot]
+ce range [theoSlot slotSlot]
+ce legalValues [theoSlot slotSlot]
+ce generalizations [theoSlot]
+ce specializations [theoSlot]
+ce inverse [theoSlot slotSlot]
+ce nrOfValues [theoSlot slotSlot]
+ce defaultValue [theoSlot slotSlot]
+ce availableMethods [theoSlot slotSlot]
+ce whenToCache [theoSlot slotSlot]
+ce probability [theoSlot slotSlot]
+ce justification [theoSlot slotSlot]
+ce comment [theoSlot]
+
+# and now their slot values
+av slotSlot domain slot
+av domain domain slot
+av domain defaultValue anything
+av range domain slot
+av inverse domain slot
+av inverse nrOfValues 1
+av inverse inverse inverse
+av nrOfValues domain slot
+av nrOfValues comment "value should be integer, or the string any"
+av nrOfValues defaultValue "any"
+av nrOfValues availableMethods useDefaultValue
+av nrOfValues nrOfValues 1
+av defaultValue domain slot
+av whenToCache domain slot
+av whenToCache defaultValue "never"
+av whenToCache comment "values might include never, always, ifComputeTimeOver1second"
+# following introduces 'belief' which is a (entity slot value) triple.
+av probability domain belief
+av justification domain belief
+av inherit domain query
+av inherit range value
+av availableMethods domain slot
+av availableMethods nrOfValues 1
+# note the use of ev which results in applying Python eval to rest of line
+ev av('availableMethods', 'defaultValue', [])
+av availableMethods comment "implemented: inherit, useDefaultValue. Future possibly: dropContext, dropAllContext, prolog, nnet"
+
+END HFT

@@ -1,0 +1,7 @@
+BEGIN HFT
+ce person [entity]
+ce tom [person]
+
+av tom spouse joan
+ce joan [person]
+END HFT

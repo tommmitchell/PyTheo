@@ -1,0 +1,4 @@
+ce person [anything]
+ce tom [person]
+av tom spouse joan
+ce joan [person]
