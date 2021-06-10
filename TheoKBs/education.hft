@@ -11,6 +11,7 @@ ce pretest [educationEntity]
 ce posttest [educationEntity]
 ce video [educationEntity]
 ce knowledgePoint [educationEntity]
+av knowledgePoint comment 'knowledgePoint is called tag_code in the dataset'
 ce instructor [educationEntity]
 
 ce instructorTaughtStudent [educationSlot]
